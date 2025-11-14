@@ -17,5 +17,5 @@ type Blog {
 }
 
 type Query {
-  getBlog(slug: String!): Blog
+  getBlogbySlug(slug: String!): Blog
 }

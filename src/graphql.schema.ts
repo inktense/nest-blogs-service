@@ -27,7 +27,7 @@ export interface Blog {
 }
 
 export interface IQuery {
-    getBlog(slug: string): Nullable<Blog> | Promise<Nullable<Blog>>;
+    getBlogbySlug(slug: string): Nullable<Blog> | Promise<Nullable<Blog>>;
 }
 
 type Nullable<T> = T | null;

@@ -96,3 +96,10 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 ## License
 
 Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+
+commands to check postgres tables
+docker compose exec postgres psql -U postgres -d awesome_blogs
+
+\dt
+
+SELECT * FROM blogs;

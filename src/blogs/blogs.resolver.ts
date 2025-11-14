@@ -1,12 +1,15 @@
 import { Resolver, Query, Args } from '@nestjs/graphql';
 import { Blog } from 'src/graphql.schema';
+import { BlogsService } from './blogs.service';
 
 @Resolver('Blog')
 export class BlogsResolver {
+  constructor(private readonly blogsService: BlogsService) {}
 
   @Query()
-   getBlog(@Args('slug') slug: string) {
+  async getBlogbySlug(@Args('slug') slug: string): Promise<Blog | null> {
     console.log(slug);
-    return [];
+    await this.blogsService.getBlogBySlug(slug);
+    return null;
   }
 }
