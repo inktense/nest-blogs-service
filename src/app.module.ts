@@ -4,10 +4,12 @@ import { join } from 'path';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { ConfigModule } from '@nestjs/config';
 import { BlogsModule } from './blogs/blogs.module';
+import { PostsModule } from './posts/posts.module';
 
 @Module({
   imports: [
     BlogsModule,
+    PostsModule,
     ConfigModule.forRoot({
       isGlobal: true,
     }),

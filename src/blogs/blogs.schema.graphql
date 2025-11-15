@@ -23,15 +23,22 @@ type Query {
 
 type Mutation {
   createBlogwithPosts(blog: CreateBlogDto!): Blog
+  createPost(post: CreatePostDto!): Post
 }
 
 input CreateBlogDto {
   name: String!
   slug: String!
-  posts: [CreatePostDto]
+  posts: [CreatePostForBlogDto]
+}
+
+input CreatePostForBlogDto {
+  title: String
+  content: String!
 }
 
 input CreatePostDto {
   title: String
   content: String!
+  blog: ID!
 }

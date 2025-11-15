@@ -11,12 +11,18 @@
 export interface CreateBlogDto {
     name: string;
     slug: string;
-    posts?: Nullable<Nullable<CreatePostDto>[]>;
+    posts?: Nullable<Nullable<CreatePostForBlogDto>[]>;
+}
+
+export interface CreatePostForBlogDto {
+    title?: Nullable<string>;
+    content: string;
 }
 
 export interface CreatePostDto {
     title?: Nullable<string>;
     content: string;
+    blog: string;
 }
 
 export interface Post {
@@ -44,6 +50,7 @@ export interface IQuery {
 
 export interface IMutation {
     createBlogwithPosts(blog: CreateBlogDto): Nullable<Blog> | Promise<Nullable<Blog>>;
+    createPost(post: CreatePostDto): Nullable<Post> | Promise<Nullable<Post>>;
 }
 
 type Nullable<T> = T | null;
