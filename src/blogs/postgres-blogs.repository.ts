@@ -13,7 +13,6 @@ export class PostgresBlogsRepository implements IBlogsRepository {
   ) {}
 
   async createBlogwithPosts(blogData: CreateBlogDto): Promise<Blog> {
-    console.log('blogData =>', blogData);
     const now = new Date().toISOString();
     let posts: Post[] = [];
     const blog = {
@@ -47,9 +46,6 @@ export class PostgresBlogsRepository implements IBlogsRepository {
       throw error;
     }
 
-    console.log('blogData =>', blogData);
-    const test = await this.pgConnection.select().from('blogs');
-    console.log('test =>', test);
     return {
         id: blog.id,
         name: blog.name,
@@ -71,7 +67,7 @@ export class PostgresBlogsRepository implements IBlogsRepository {
     const blog = await this.pgConnection('blogs')
     .where({ slug })
     .first();
-console.log('blog =>', blog);
+
   if (!blog) return null;
 
   const posts = await this.pgConnection('posts')

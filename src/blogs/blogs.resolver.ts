@@ -9,7 +9,6 @@ export class BlogsResolver {
 
   @Query()
   async getBlogbySlug(@Args('slug') slug: string): Promise<Blog | null> {
-    console.log(slug);
     return await this.blogsService.getBlogBySlug(slug);
   }
 

@@ -11,12 +11,10 @@ export class BlogsService {
 
   async createBlogwithPosts(createBlogDto: CreateBlogDto) {
     const blog = await this.blogsRepository.createBlogwithPosts(createBlogDto);
-    console.log('blog =>', blog);
     return blog;
   }
 
   async getBlogBySlug(slug: string) {
-    console.log('slug =>', slug);
     const blog = await this.blogsRepository.getBlogBySlug(slug);
     return blog;
   }
