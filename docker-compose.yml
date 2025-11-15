@@ -13,5 +13,17 @@ services:
       - postgres-data:/var/lib/postgresql/data
       - ./scripts/init-postgres.sql:/docker-entrypoint-initdb.d/init-postgres.sql:ro
 
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: blogs-service
+    environment:
+      - DATABASE_URL=postgresql://postgres:postgres@postgres:5432/awesome_blogs
+    ports:
+      - "3000:3000"
+    depends_on:
+      - postgres
+
 volumes:
   postgres-data:
