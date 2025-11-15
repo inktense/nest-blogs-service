@@ -47,46 +47,43 @@ export class PostgresBlogsRepository implements IBlogsRepository {
     }
 
     return {
-        id: blog.id,
-        name: blog.name,
-        slug: blog.slug,
-        createdAt: blog.createdAt,
-        updatedAt: blog.updatedAt,
-        posts: posts.map((p) => ({
-          id: p.id,
-          title: p.title,
-          content: p.content,
-          blog: p.blog,
-          createdAt: p.createdAt,
-          updatedAt: p.updatedAt,
-        })),
-      };
+      id: blog.id,
+      name: blog.name,
+      slug: blog.slug,
+      createdAt: blog.createdAt,
+      updatedAt: blog.updatedAt,
+      posts: posts.map((p) => ({
+        id: p.id,
+        title: p.title,
+        content: p.content,
+        blog: p.blog,
+        createdAt: p.createdAt,
+        updatedAt: p.updatedAt,
+      })),
+    };
   }
 
   async getBlogBySlug(slug: string): Promise<Blog | null> {
-    const blog = await this.pgConnection('blogs')
-    .where({ slug })
-    .first();
+    const blog = await this.pgConnection('blogs').where({ slug }).first();
 
-  if (!blog) return null;
+    if (!blog) return null;
 
-  const posts = await this.pgConnection('posts')
-    .where({ blog: blog.id });
+    const posts = await this.pgConnection('posts').where({ blog: blog.id });
 
-  return {
-    id: blog.id,
-    name: blog.name,
-    slug: blog.slug,
-    createdAt: blog.createdAt,
-    updatedAt: blog.createdAt,
-    posts: posts.map((p) => ({
-      id: p.id,
-      title: p.title,
-      content: p.content,
-      blog: p.blog,
-      createdAt: p.createdAt,
-      updatedAt: p.createdAt,
-    })),
-  };
+    return {
+      id: blog.id,
+      name: blog.name,
+      slug: blog.slug,
+      createdAt: blog.createdAt,
+      updatedAt: blog.createdAt,
+      posts: posts.map((p) => ({
+        id: p.id,
+        title: p.title,
+        content: p.content,
+        blog: p.blog,
+        createdAt: p.createdAt,
+        updatedAt: p.createdAt,
+      })),
+    };
   }
 }

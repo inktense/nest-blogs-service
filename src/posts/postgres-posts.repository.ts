@@ -13,7 +13,6 @@ export class PostgresPostsRepository implements IPostsRepository {
   ) {}
 
   async createPost(postData: CreatePostDto): Promise<Post> {
-
     const now = new Date().toISOString();
     const post = {
       id: randomUUID(),
