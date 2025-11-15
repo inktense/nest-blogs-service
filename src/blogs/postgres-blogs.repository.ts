@@ -68,11 +68,29 @@ export class PostgresBlogsRepository implements IBlogsRepository {
   }
 
   async getBlogBySlug(slug: string): Promise<Blog | null> {
-    const blog = await this.pgConnection
-      .select()
-      .from('blogs')
-      .where('slug', slug)
-      .first();
-    return blog ?? null;
+    const blog = await this.pgConnection('blogs')
+    .where({ slug })
+    .first();
+console.log('blog =>', blog);
+  if (!blog) return null;
+
+  const posts = await this.pgConnection('posts')
+    .where({ blog: blog.id });
+
+  return {
+    id: blog.id,
+    name: blog.name,
+    slug: blog.slug,
+    createdAt: blog.createdAt,
+    updatedAt: blog.createdAt,
+    posts: posts.map((p) => ({
+      id: p.id,
+      title: p.title,
+      content: p.content,
+      blog: p.blog,
+      createdAt: p.createdAt,
+      updatedAt: p.createdAt,
+    })),
+  };
   }
 }

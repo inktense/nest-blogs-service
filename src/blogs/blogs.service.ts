@@ -17,6 +17,7 @@ export class BlogsService {
 
   async getBlogBySlug(slug: string) {
     console.log('slug =>', slug);
-    return await this.blogsRepository.getBlogBySlug(slug);
+    const blog = await this.blogsRepository.getBlogBySlug(slug);
+    return blog;
   }
 }
