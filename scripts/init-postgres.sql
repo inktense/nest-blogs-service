@@ -4,8 +4,8 @@ CREATE TABLE IF NOT EXISTS blogs (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     name TEXT NOT NULL,
     slug TEXT NOT NULL UNIQUE,
-    created_at TEXT NOT NULL DEFAULT NOW()::TEXT,
-    updated_at TEXT NOT NULL DEFAULT NOW()::TEXT
+    "createdAt" TEXT NOT NULL DEFAULT NOW()::TEXT,
+    "updatedAt" TEXT NOT NULL DEFAULT NOW()::TEXT
 );
 
 CREATE TABLE IF NOT EXISTS posts (
@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS posts (
     blog UUID NOT NULL REFERENCES blogs(id) ON DELETE CASCADE,
     title TEXT,
     content TEXT NOT NULL,
-    created_at TEXT NOT NULL DEFAULT NOW()::TEXT,
-    updated_at TEXT NOT NULL DEFAULT NOW()::TEXT
+    "createdAt" TEXT NOT NULL DEFAULT NOW()::TEXT,
+    "updatedAt" TEXT NOT NULL DEFAULT NOW()::TEXT
 );
 

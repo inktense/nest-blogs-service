@@ -16,7 +16,7 @@ import { BlogsModule } from './blogs/blogs.module';
       graphiql: true,
       typePaths: ['./**/*.graphql'],
       definitions: {
-        path: join(process.cwd(), 'src/graphql.schema.ts'),
+        path: join(process.cwd(), 'src/graphql/graphql.schema.ts'),
       },
     }),
   ],

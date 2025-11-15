@@ -1,4 +1,4 @@
-import { Blog } from 'src/graphql.schema';
+import { Blog } from 'src/graphql/graphql.schema';
 import { CreateBlogDto } from 'src/common/dto/create-blog.dto';
 
 export interface IBlogsRepository {
