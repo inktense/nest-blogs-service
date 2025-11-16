@@ -124,6 +124,8 @@ TypeScript – for type safety.
 Based on the requirements in the Bonus and one of the questions below, I considered it important to keep the business logic and data layer separated, that led me to use the repository pattern. 
 
 
+---
+
 2. **What were some of the trade-offs you made when building this application? Why were these acceptable trade-offs?**
 
 I chose not to implement any tests or error handling. Given the limited time frame and the purpose of the assignment, I focused on delivering the core functionality rather than full production-grade code.
@@ -137,6 +139,8 @@ I chose not to implement any tests or error handling. Given the limited time fra
 All the trade-offs were acceptable to me at this stage because the purpose of this exercise was to create a POC for multiple databases, and the assignment had a time limit.
 
 
+---
+
 3. **Given more time, what improvements or optimizations would you want to add? When would you add them?**
 
 Immediate changes would include taking a closer look at the Typescript setup. I would also create a proper mapper between the database object structure and the GraphQL representation. For the sake of speed I created the database tables to match the GraphQL types directly, but that is not ideal. For example, fields like createdAt should actually be stored as created_at in Postgres to follow proper naming conventions. I also set createdAt and updatedAt as Strings because handling them as datetimes in GraphQL was more complex than expected within the time constraints. This definitely needs to be corrected going forward.
@@ -146,6 +150,8 @@ Future changes would include adding the full set of CRUD operations together wit
 Another important improvement relates to the slug. For simplicity I allowed the client to send the slug directly, but this can become a scaling problem. The slug needs to be unique and it is tied to the blog title in a way an ID is not. Ideally the slug should be generated inside the service based on the title, checked against the database for uniqueness, and automatically incremented or adjusted if it already exists. We would also need to consider what happens when a blog title changes or when localisation is introduced.
 
 I would also have implemented a Nest dynamic module to select the database based on an environment variable in the database module. This would allow switching between the Postgres and MongoDB repositories without changing application code. I would only do this once the bonus part becomes a real requirement, but the current project structure makes that transition easy.
+
+---
 
 4. **What would you need to do to make this application scale to hundreds of thousands of users?**
 
@@ -165,6 +171,7 @@ It would be important to understand usage patterns, including read/write ratios,
 
 All of these considerations must be balanced carefully between business needs and cost efficiency.
 
+---
 
 5. **How would you change the architecture to allow for models that are stored in different databases? E.g. posts are stored in Cassandra and blogs are stored in Postgres.**
 
@@ -175,6 +182,8 @@ I would keep the repository pattern so that services depend on interfaces rather
 The main challenge becomes transactions, such as creating a blog with posts. In this case, each database operation would need to be executed sequentially, tracking state and implementing rollback if any step fails. For example, if the blog creation succeeds but the post creation fails, the blog should be deleted to maintain consistency. 
 
 Cross database operations mean eventual consistency, we must accept this as a trade off. If we need strong consistency then we should add the related data in the same DB. 
+
+---
 
 6. **How would you deploy the Architecture you designed in a production ready way?**
 
