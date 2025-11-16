@@ -159,13 +159,26 @@ I would approach this from two separate angles: **Application Logic** and **Infr
 
 **Application Logic**
 
-I would ensure that the separation between business logic and the data layer is strictly maintained. Monitoring and logging would be added, along with authentication, pagination, and potentially an ORM. Prisma, for example, would make it easier to transition between database entities and application entities. I would also consider whether it makes sense to separate posts and blogs into distinct microservices, though in this case they are closely related, so keeping them together may be more practical. Database indexing would be necessary to speed up queries, and we would need to consider any differences between web and mobile requirements.
+I would ensure that the separation between business logic and the data layer is strictly maintained. Monitoring and logging would be added, along with authentication, pagination, and potentially an ORM. 
+Prisma, for example, would make it easier to transition between database entities and application entities. 
+
+I would also consider whether it makes sense to separate posts and blogs into distinct microservices, though in this case they are closely related, so keeping them together may be more practical. 
+
+Database indexing would be necessary to speed up queries, and we would need to consider any differences between web and mobile requirements.
+
 Maintaining operational excellence is key: small, frequent releases, thorough testing, and regular reviews of requirements help ensure the design remains flexible and able to evolve. Communication with product teams is essential to understand the long-term vision. Once the product reaches hundreds of thousands of users, logging, metrics, and automation become essential. 
 
 **Infrastructure**
 
-For scaling we have vertical versus horizontal approaches. Horizontal scaling is generally preferable here. We would evaluate whether the application needs to serve users globally. Separating application and database tiers allows independent scaling of each. Load balancing across multiple availability zones, caching, and database replication for read-heavy workloads would improve performance. 
-For a blog platform, static content could be served via a CDN to reduce latency, and this approach can extend to images stored in something like S3. Rate limiting could be implemented via an API Gateway, and Shield or similar services could protect against DDoS attacks while enforcing other security best practices.
+For scaling we have vertical versus horizontal approaches. Horizontal scaling is generally preferable here, since we are talking about microservices. We would evaluate whether the application needs to serve users globally. 
+
+Separating application and database tiers allows independent scaling of each. 
+
+Load balancing across multiple availability zones, caching, and database replication for read-heavy workloads would improve performance. 
+
+For a blog platform, static content could be served via a CDN to reduce latency, and this approach can extend to images stored in something like S3. 
+
+Rate limiting could be implemented via an API Gateway, and Shield or similar services could protect against DDoS attacks while enforcing other security best practices.
 
 It would be important to understand usage patterns, including read/write ratios, and to establish a tested disaster recovery strategy. If the database grows too large, sharding (horizontal scaling) may be required.
 
@@ -187,6 +200,10 @@ Cross database operations mean eventual consistency, we must accept this as a tr
 
 6. **How would you deploy the Architecture you designed in a production ready way?**
 
-I would ensure proper logging and observability across all services to monitor performance and detect issues quickly. GraphQL validation would be added to enforce input correctness and prevent invalid requests. A CI/CD pipeline would be implemented to automate testing, building, and deployment. Additionally, I would maintain multiple environments, like dev - qa - preprod - prod, with a plan and process for promoting changes safely from one environment to the next.
+I would ensure proper logging and observability across all services to monitor performance and detect issues quickly.
+
+ GraphQL validation would be added to enforce input correctness and prevent invalid requests.
+
+ A CI/CD pipeline would be implemented to automate testing, building, and deployment. Additionally, I would maintain multiple environments, like dev - qa - preprod - prod, with a plan and process for promoting changes safely from one environment to the next.
 
 I would also make sure we have Database backups set in place  and a disaster recovery plan before we make it to production.
