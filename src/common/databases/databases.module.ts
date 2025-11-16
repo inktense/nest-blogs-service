@@ -10,11 +10,12 @@ import knex from 'knex';
       provide: 'PG_CONNECTION',
       inject: [ConfigService],
       useFactory: (configService: ConfigService) => {
-        const databaseUrl = configService.get<string>('DATABASE_URL');
 
-        if (typeof databaseUrl !== 'string' || databaseUrl.length === 0) {
+        if (!configService.get<string>('DATABASE_URL')) {
           throw new Error('DATABASE_URL must be defined');
         }
+
+        const databaseUrl = configService.get<string>('DATABASE_URL');
 
         return knex({
           client: 'pg',
