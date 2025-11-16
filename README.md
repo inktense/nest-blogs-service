@@ -153,7 +153,7 @@ I would also have implemented a Nest dynamic module to select the database based
 
 ---
 
-4. **What would you need to do to make this application scale to hundreds of thousands of users?**
+1. **What would you need to do to make this application scale to hundreds of thousands of users?**
 
 I would approach this from two separate angles: **Application Logic** and **Infrastructure**.
 
@@ -205,5 +205,7 @@ I would ensure proper logging and observability across all services to monitor p
  GraphQL validation would be added to enforce input correctness and prevent invalid requests.
 
  A CI/CD pipeline would be implemented to automate testing, building, and deployment. Additionally, I would maintain multiple environments, like dev - qa - preprod - prod, with a plan and process for promoting changes safely from one environment to the next.
+
+I would move from using Postgres running in Docker to a fully managed database service. A local Dockerized Postgres instance is perfect for development, but not for scaling, or ensuring reliability in a real environment.
 
 I would also make sure we have Database backups set in place  and a disaster recovery plan before we make it to production.
